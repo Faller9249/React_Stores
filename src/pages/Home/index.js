@@ -7,6 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import GrowCard from '../../components/Card/index';
+import { useDispatch, useSelector } from 'react-redux';
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
+import { limpar } from '../../store/modules/cart/action';
+import Users from'../../routes/index';
+
 
 const useStyles = makeStyles((theme) => ({
     '@global': {
@@ -106,20 +112,32 @@ const footers = [
     },
 ];
 
+
 export default function Home() {
     const classes = useStyles();
+
+    const total = useSelector(store => store.cart.total);
+
+    const dispatch = useDispatch();
+
+    function limparCarrinho(){
+        dispatch(limpar());
+    }
 
     return (
         <React.Fragment>
             <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
                     <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>Growdev</Typography>
-                    <nav>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>Features</Link>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>Enterprise</Link>
-                        <Link variant="button" color="textPrimary" href="#" className={classes.link}>Support</Link>
-                    </nav>
-                    <Button href="#" color="primary" variant="outlined" className={classes.link}>Login</Button>
+                    <Typography variant="h5" color="inherit" noWrap className={classes.toolbarTitle}>R$ {total.toFixed(2)}</Typography>
+                    
+                    <Button color='secondary' variant="outlined" className={classes.link}
+                        onClick={limparCarrinho}
+                    >
+                        <RemoveShoppingCartIcon/>
+                    </Button>
+                    <Button href ="#" variant="contained" color="primary" className={classes.link}>Carrinho</Button>
+                    <Button href="#" color="primary" variant="outlined" className={classes.link} onclick={Users}>Login</Button>
                 </Toolbar>
             </AppBar>
             <Container maxWidth="sm" component="main" className={classes.heroContent}>
@@ -129,7 +147,7 @@ export default function Home() {
             <Container maxWidth="md" component="main">
                 <Grid container spacing={5} alignItems="flex-end">
                     {tiers.map((tier) => (
-                        <GrowdCard key={props.tier.title} tier={tier} classes={classes}></GrowdCard>
+                        <GrowCard key={tier.title} tier={tier} classes={classes} />
                     ))}
                 </Grid>
             </Container>
@@ -156,3 +174,4 @@ export default function Home() {
         </React.Fragment>
     );
 }
+
