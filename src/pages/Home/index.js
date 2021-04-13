@@ -129,7 +129,7 @@ export default function Home() {
             <Container maxWidth="md" component="main">
                 <Grid container spacing={5} alignItems="flex-end">
                     {tiers.map((tier) => (
-                        <GrowdCard tier={tier} classes={classes}></GrowdCard>
+                        <GrowdCard key={props.tier.title} tier={tier} classes={classes}></GrowdCard>
                     ))}
                 </Grid>
             </Container>

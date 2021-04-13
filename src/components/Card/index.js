@@ -19,7 +19,7 @@ export default function GrowdCard(props) {
         }));
     }
 
-    return ( <Grid item key={props.tier.title} xs={12} sm={props.tier.title === 'Enterprise' ? 12 : 6} md={4}>
+    return ( <Grid item xs={12} sm={props.tier.title === 'Enterprise' ? 12 : 6} md={4}>
     <Card>
         <CardHeader
             title={props.tier.title}
